@@ -65,7 +65,8 @@ public class Parametric extends AbstractAnalysis{
         ez.setExpressionType(double.class);
 
         // And now we "cook" (scan, parse, compile and load) the fabulous expression.
-        try {
+        try {//(cos(t)){t<100000}+(sin(t)){t>100000}
+            System.out.println(functions[0]);
             ex.cook(functions[0]);
             ey.cook(functions[1]);
             ez.cook(functions[2]);

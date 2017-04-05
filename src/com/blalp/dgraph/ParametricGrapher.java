@@ -105,35 +105,6 @@ public class ParametricGrapher {
         window.add(pane);
         window.pack();
         window.setVisible(true);
-        /*switch (mode) {
-            case "Surface":
-            // Define a function to plot
-            Mapper mapper = new Mapper() {
-                public double f(double x, double y) {
-                    return Math.sin(x / 10) * Math.cos(y / 20);
-                }
-            };
-
-// Define range and precision for the function to plot
-            Range range = new Range(-150, 150);
-            int steps = 50;
-
-// Create a surface drawing that function
-            Shape surface = Builder.buildOrthonormal(new OrthonormalGrid(range, steps, range, steps), mapper);
-            surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new org.jzy3d.colors.Color(1, 1, 1, .5f)));
-            surface.setFaceDisplayed(true);
-            surface.setWireframeDisplayed(false);
-            surface.setWireframeColor(org.jzy3d.colors.Color.RED);
-            ParametricGrapher.surface=surface;
-            break;
-            case "Parametric":*/
-                /*try {
-                    Parametric.main();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }*/
-                //break;
-        //}
     }
     private static boolean validInput(String str){
         if(str.contains("T")){
@@ -167,10 +138,9 @@ public class ParametricGrapher {
         output=output.replaceAll("(?<!\\.)log","Math.log10");
         output=output.replaceAll("ln\\((.*)\\)","Math.log($1)/Math.log(Math.E)");
         output=output.replaceAll("(\\[.*?)\\^(.*?])","Math.pow($1,$2)").replace("]","").replace("[","");
-        //TODO: add peacewise
-        //output.replaceAll("\{(.*)|(.*)\}","\{$1||$2\}");
-        //output.replaceAll("\{(.*)&(.*)\}","\{$1&&$2\}");
-        //output.replaceAll("\((.*)\)\{(.*)\}
+        output=output.replaceAll("\\{(.*)\\|(.*)\\}","\\{$1||$2\\}");
+        output=output.replaceAll("\\{(.*)\\&(.*)\\}","\\{$1&&$2\\}");
+        output=output.replaceAll("\\((.*)\\)\\{(.*)\\}","($2) ? ($1) : 0");//TODO: make it work with two things
         //sync to github
         return output;
 
@@ -194,59 +164,6 @@ public class ParametricGrapher {
         output.gridwidth=gridwidth;
         output.gridheight=gridheight;
         return output;
-        /*
-        JButton button;
-pane.setLayout(new GridBagLayout());
-GridBagConstraints c = new GridBagConstraints();
-if (shouldFill) {
-                //natural height, maximum width
-                c.fill = GridBagConstraints.HORIZONTAL;
-}
-
-button = new JButton("Button 1");
-if (shouldWeightX) {
-                   c.weightx = 0.5;
-}
-c.fill = GridBagConstraints.HORIZONTAL;
-c.gridx = 0;
-c.gridy = 0;
-pane.add(button, c);
-
-button = new JButton("Button 2");
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.gridy = 0;
-pane.add(button, c);
-
-button = new JButton("Button 3");
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 2;
-c.gridy = 0;
-pane.add(button, c);
-
-button = new JButton("Long-Named Button 4");
-c.fill = GridBagConstraints.HORIZONTAL;
-c.ipady = 40;      //make this component tall
-c.weightx = 0.0;
-c.gridwidth = 3;
-c.gridx = 0;
-c.gridy = 1;
-pane.add(button, c);
-
-button = new JButton("5");
-c.fill = GridBagConstraints.HORIZONTAL;
-c.ipady = 0;       //reset to default
-c.weighty = 1.0;   //request any extra vertical space
-c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-c.insets = new Insets(10,0,0,0);  //top padding
-c.gridx = 1;       //aligned with button 2
-c.gridwidth = 2;   //2 columns wide
-c.gridy = 2;       //third row
-pane.add(button, c);
-
-http://docs.oracle.com/javase/tutorial/figures/uiswing/layout/GridBagLayoutDemo.png
-         */
+//http://docs.oracle.com/javase/tutorial/figures/uiswing/layout/GridBagLayoutDemo.png
     }
 }
