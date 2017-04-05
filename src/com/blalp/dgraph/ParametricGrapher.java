@@ -171,6 +171,7 @@ public class ParametricGrapher {
         //output.replaceAll("\{(.*)|(.*)\}","\{$1||$2\}");
         //output.replaceAll("\{(.*)&(.*)\}","\{$1&&$2\}");
         //output.replaceAll("\((.*)\)\{(.*)\}
+        //sync to github test
         return output;
 
     }
