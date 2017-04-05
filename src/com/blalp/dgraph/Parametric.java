@@ -71,6 +71,7 @@ public class Parametric extends AbstractAnalysis{
             ez.cook(functions[2]);
         } catch (CompileException el){
             el.printStackTrace();
+            return;
         }
         // Eventually we evaluate the expression - and that goes super-fast.
         for(int i=(int)Math.floor(range.getMin());i<(int)Math.ceil(range.getMax()*(1/step));i++){

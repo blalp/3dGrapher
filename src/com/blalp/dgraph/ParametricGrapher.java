@@ -167,6 +167,10 @@ public class ParametricGrapher {
         output=output.replaceAll("(?<!\\.)log","Math.log10");
         output=output.replaceAll("ln\\((.*)\\)","Math.log($1)/Math.log(Math.E)");
         output=output.replaceAll("(\\[.*?)\\^(.*?])","Math.pow($1,$2)").replace("]","").replace("[","");
+        //TODO: add peacewise
+        //output.replaceAll("\{(.*)|(.*)\}","\{$1||$2\}");
+        //output.replaceAll("\{(.*)&(.*)\}","\{$1&&$2\}");
+        //output.replaceAll("\((.*)\)\{(.*)\}
         return output;
 
     }
