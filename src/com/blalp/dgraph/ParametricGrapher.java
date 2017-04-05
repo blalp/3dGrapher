@@ -1,6 +1,7 @@
 package com.blalp.dgraph;
 
 import org.jzy3d.maths.Range;
+import sun.misc.MessageUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,7 @@ public class ParametricGrapher {
         JLabel fRulesLbl = new JLabel("<html>Some Rules that you need to fallow for this to work right.<br>"+
         "Acceptable functions: + - * / sin cos tan arccos arctan arcsin<br>"+
         "Special rules for ^: Enclose the two values you want to raise to the power in []. For example t^2 becomes [t]^[2]. Sorry for the inconvenience.<br>"+
+        "Special rules for piecewise: Enclose the function in () and the domain in {}. For example t from 5 to 10 or 2 to 3 becomes (t){(5<t&t<10)|(2>t&t>3)}. Sorry for the inconvenience.<br>"+
         "Have fun! - blalp<br><br>"+
         "Instructions:<br>"+
         "Rotate     : Left click and drag mouse<br>" +
@@ -139,9 +141,13 @@ public class ParametricGrapher {
         output=output.replaceAll("ln\\((.*)\\)","Math.log($1)/Math.log(Math.E)");
         output=output.replaceAll("(\\[.*?)\\^(.*?])","Math.pow($1,$2)").replace("]","").replace("[","");
         output=output.replaceAll("\\{(.*)\\|(.*)\\}","\\{$1||$2\\}");
-        output=output.replaceAll("\\{(.*)\\&(.*)\\}","\\{$1&&$2\\}");
-        output=output.replaceAll("\\((.*)\\)\\{(.*)\\}","($2) ? ($1) : 0");//TODO: make it work with two things
-        //sync to github
+        output=output.replaceAll("\\{(.*)\\&(.*)\\}","\\{$1&&$2\\}");//TODO: make the below code work so it is easier to type
+        //output=output.replaceAll("<(.*?)<","<$1&&$1<");
+        //output=output.replaceAll("<(.*?)>","<$1&&$1>");
+        //output=output.replaceAll(">(.*?)<",">$1&&$1<");
+        //output=output.replaceAll(">(.*?)>",">$1&&$1>");
+        output=output.replaceAll("\\((.*?)\\)\\{(.*?)\\}","(($2) ? ($1) : 0)");
+        //(cos(t)){1000<t&2000>t}+(sin(t)){t>2000}
         return output;
 
     }
